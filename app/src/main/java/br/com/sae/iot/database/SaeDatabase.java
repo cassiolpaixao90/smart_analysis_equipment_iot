@@ -12,7 +12,9 @@ import br.com.sae.iot.model.Industry;
 import br.com.sae.iot.model.IndustryArea;
 import br.com.sae.iot.model.Product;
 
-
+/**
+ * @author cassiopaixao
+ */
 @Database(entities = {Industry.class, IndustryArea.class, Product.class}, version = 1, exportSchema = false)
 public abstract class SaeDatabase extends RoomDatabase {
 

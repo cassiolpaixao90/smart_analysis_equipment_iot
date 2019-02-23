@@ -10,6 +10,9 @@ import java.util.List;
 
 import br.com.sae.iot.model.IndustryArea;
 
+/**
+ * @author cassiopaixao
+ */
 @Dao
 public interface IndustryAreaDAO {
 
