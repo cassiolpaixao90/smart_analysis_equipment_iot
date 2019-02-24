@@ -6,4 +6,9 @@
     <string name="business">Empresa</string>
     <string name="name_company">Nome da Empresa</string>
     <string name="btn_salvar">Salvar</string>
+
+    <!--messages-->
+    <string name="msg_erro_obrigatorio">Campo Obrigatório</string>
+    <string name="title_company">Opa, vamos criar uma nova fábrica?!</string>
+
 </resources>

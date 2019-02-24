@@ -14,6 +14,7 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import br.com.sae.iot.R;
+import br.com.sae.iot.utils.FormValidator;
 
 public class IndustryFragment extends Fragment implements View.OnClickListener {
 
@@ -41,6 +42,13 @@ public class IndustryFragment extends Fragment implements View.OnClickListener {
 
     @Override
     public void onClick(View v) {
+        if (!formIsValid()) {
+            return;
+        }
+    }
 
+    private boolean formIsValid() {
+        EditText forms[] = {mEditTextName};
+        return FormValidator.isValid(getActivity(), forms);
     }
 }

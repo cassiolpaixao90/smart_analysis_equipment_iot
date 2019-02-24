@@ -18,9 +18,9 @@
         android:layout_marginStart="20dp"
         android:layout_marginTop="68dp"
         android:gravity="center"
-        android:text="@string/name_company"
+        android:text="@string/title_company"
         android:textColor="@color/black"
-        android:textSize="18sp"
+        android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
