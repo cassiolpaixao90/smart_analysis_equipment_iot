@@ -4,4 +4,6 @@
     <string name="area">Área</string>
     <string name="product">Produto</string>
     <string name="business">Empresa</string>
+    <string name="name_company">Nome da Empresa</string>
+    <string name="btn_salvar">Salvar</string>
 </resources>

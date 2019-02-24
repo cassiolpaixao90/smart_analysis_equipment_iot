@@ -6,218 +6,247 @@
     android:layout_height="match_parent"
     tools:context=".ui.activity.MainActivity">
 
-    <!--splash screen-->
-    <ImageView
-        android:id="@+id/clover"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="272dp"
-        android:elevation="6dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    <include
+        layout="@layout/app_bar"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
 
-    <LinearLayout
-        android:id="@+id/textsplash"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="300dp"
-        android:layout_marginEnd="8dp"
-        android:elevation="6dp"
-        android:gravity="center"
-        android:orientation="vertical"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+    <!--&lt;!&ndash;splash screen&ndash;&gt;-->
+    <!--<ImageView-->
+    <!--android:id="@+id/clover"-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_marginEnd="272dp"-->
+    <!--android:elevation="6dp"-->
+    <!--app:layout_constraintEnd_toEndOf="parent"-->
+    <!--app:layout_constraintTop_toTopOf="parent" />-->
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Bem vindo!"
-            android:textColor="#FFF"
-            android:textSize="24sp" />
+    <!--<LinearLayout-->
+    <!--android:id="@+id/textsplash"-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_marginStart="8dp"-->
+    <!--android:layout_marginTop="300dp"-->
+    <!--android:layout_marginEnd="8dp"-->
+    <!--android:elevation="6dp"-->
+    <!--android:gravity="center"-->
+    <!--android:orientation="vertical"-->
+    <!--app:layout_constraintEnd_toEndOf="parent"-->
+    <!--app:layout_constraintStart_toStartOf="parent"-->
+    <!--app:layout_constraintTop_toTopOf="parent">-->
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="SAE"
-            android:textColor="#FFF"
-            android:textSize="16sp" />
+    <!--<TextView-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:text="Bem vindo!"-->
+    <!--android:textColor="#FFF"-->
+    <!--android:textSize="24sp" />-->
 
-    </LinearLayout>
+    <!--<TextView-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:text="SAE"-->
+    <!--android:textColor="#FFF"-->
+    <!--android:textSize="16sp" />-->
 
-    <!--toolbar-->
-    <LinearLayout
-        android:id="@+id/texthome"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="28dp"
-        android:elevation="6dp"
+    <!--</LinearLayout>-->
 
-        android:gravity="left"
-        android:orientation="vertical"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+    <!--&lt;!&ndash;toolbar&ndash;&gt;-->
+    <!--<LinearLayout-->
+    <!--android:id="@+id/texthome"-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_marginStart="24dp"-->
+    <!--android:layout_marginTop="28dp"-->
+    <!--android:elevation="6dp"-->
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="SAE"
-            android:textColor="#FFF"
-            android:textSize="24sp" />
+    <!--android:gravity="left"-->
+    <!--android:orientation="vertical"-->
+    <!--app:layout_constraintStart_toStartOf="parent"-->
+    <!--app:layout_constraintTop_toTopOf="parent">-->
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Monitore seus equipamentos"
-            android:textColor="#FFF"
-            android:textSize="16sp" />
-    </LinearLayout>
+    <!--<TextView-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:text="SAE"-->
+    <!--android:textColor="#FFF"-->
+    <!--android:textSize="24sp" />-->
 
-    <!--lista de empresas-->
-    <LinearLayout
-        android:id="@+id/menus"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="220dp"
-        android:layout_marginEnd="8dp"
-        android:elevation="6dp"
-        android:orientation="vertical"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.726"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+    <!--<TextView-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:text="Monitore seus equipamentos"-->
+    <!--android:textColor="#FFF"-->
+    <!--android:textSize="16sp" />-->
+    <!--</LinearLayout>-->
 
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="70dp"
-            android:orientation="horizontal">
+    <!--&lt;!&ndash;lista de empresas&ndash;&gt;-->
+    <!--<LinearLayout-->
+    <!--android:id="@+id/menus"-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_marginStart="8dp"-->
+    <!--android:layout_marginTop="220dp"-->
+    <!--android:layout_marginEnd="8dp"-->
+    <!--android:elevation="6dp"-->
+    <!--android:orientation="vertical"-->
+    <!--app:layout_constraintEnd_toEndOf="parent"-->
+    <!--app:layout_constraintHorizontal_bias="0.726"-->
+    <!--app:layout_constraintStart_toStartOf="parent"-->
+    <!--app:layout_constraintTop_toTopOf="parent">-->
 
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginRight="50dp"
-                android:gravity="center"
-                android:orientation="vertical">
+    <!--<LinearLayout-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_marginBottom="70dp"-->
+    <!--android:orientation="horizontal">-->
 
-
-                <ImageView
-                    android:layout_width="100dp"
-                    android:layout_height="100dp"
-                    android:layout_marginBottom="4dp"
-                    android:onClick="goToHome"
-                    android:src="@drawable/industry" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Industria 1"
-                    android:textColor="#0E1843"
-                    android:textSize="22sp" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginRight="50dp"
-                android:gravity="center"
-                android:orientation="vertical">
+    <!--<LinearLayout-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_marginRight="50dp"-->
+    <!--android:gravity="center"-->
+    <!--android:orientation="vertical">-->
 
 
-                <ImageView
-                    android:layout_width="100dp"
-                    android:layout_height="100dp"
-                    android:layout_marginBottom="4dp"
-                    android:onClick="goToHome"
-                    android:src="@drawable/industry" />
+    <!--<ImageView-->
+    <!--android:layout_width="100dp"-->
+    <!--android:layout_height="100dp"-->
+    <!--android:layout_marginBottom="4dp"-->
+    <!--android:onClick="goToHome"-->
+    <!--android:src="@drawable/industry" />-->
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Industria 2"
-                    android:textColor="#0E1843"
-                    android:textSize="22sp" />
+    <!--<TextView-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:text="Industria 1"-->
+    <!--android:textColor="#0E1843"-->
+    <!--android:textSize="22sp" />-->
 
-            </LinearLayout>
+    <!--</LinearLayout>-->
 
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="70dp"
-            android:orientation="horizontal">
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginRight="50dp"
-                android:gravity="center"
-                android:orientation="vertical">
+    <!--<LinearLayout-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_marginRight="50dp"-->
+    <!--android:gravity="center"-->
+    <!--android:orientation="vertical">-->
 
 
-                <ImageView
-                    android:layout_width="100dp"
-                    android:layout_height="100dp"
-                    android:layout_marginBottom="4dp"
-                    android:onClick="goToHome"
-                    android:src="@drawable/industry" />
+    <!--<ImageView-->
+    <!--android:layout_width="100dp"-->
+    <!--android:layout_height="100dp"-->
+    <!--android:layout_marginBottom="4dp"-->
+    <!--android:onClick="goToHome"-->
+    <!--android:src="@drawable/industry" />-->
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Industria 3"
-                    android:textColor="#0E1843"
-                    android:textSize="22sp" />
+    <!--<TextView-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:text="Industria 2"-->
+    <!--android:textColor="#0E1843"-->
+    <!--android:textSize="22sp" />-->
 
-            </LinearLayout>
+    <!--</LinearLayout>-->
 
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginRight="50dp"
-                android:gravity="center"
-                android:orientation="vertical">
+    <!--</LinearLayout>-->
 
+    <!--<LinearLayout-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_marginBottom="70dp"-->
+    <!--android:orientation="horizontal">-->
 
-                <ImageView
-                    android:layout_width="100dp"
-                    android:layout_height="100dp"
-                    android:layout_marginBottom="4dp"
-                    android:onClick="goToHome"
-                    android:src="@drawable/industry" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Industria 4"
-                    android:textColor="#0E1843"
-                    android:textSize="22sp" />
-
-            </LinearLayout>
+    <!--<LinearLayout-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_marginRight="50dp"-->
+    <!--android:gravity="center"-->
+    <!--android:orientation="vertical">-->
 
 
-        </LinearLayout>
+    <!--<ImageView-->
+    <!--android:layout_width="100dp"-->
+    <!--android:layout_height="100dp"-->
+    <!--android:layout_marginBottom="4dp"-->
+    <!--android:onClick="goToHome"-->
+    <!--android:src="@drawable/industry" />-->
+
+    <!--<TextView-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:text="Industria 3"-->
+    <!--android:textColor="#0E1843"-->
+    <!--android:textSize="22sp" />-->
+
+    <!--</LinearLayout>-->
+
+    <!--<LinearLayout-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_marginRight="50dp"-->
+    <!--android:gravity="center"-->
+    <!--android:orientation="vertical">-->
 
 
-    </LinearLayout>
+    <!--<ImageView-->
+    <!--android:layout_width="100dp"-->
+    <!--android:layout_height="100dp"-->
+    <!--android:layout_marginBottom="4dp"-->
+    <!--android:onClick="goToHome"-->
+    <!--android:src="@drawable/industry" />-->
 
-    <ImageView
-        android:id="@+id/bgapp"
-        android:layout_width="526dp"
-        android:layout_height="900dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp"
-        android:scaleType="fitXY"
-        android:src="@drawable/bgapp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.923"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    <!--<TextView-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:text="Industria 4"-->
+    <!--android:textColor="#0E1843"-->
+    <!--android:textSize="22sp" />-->
+
+    <!--</LinearLayout>-->
+
+
+    <!--</LinearLayout>-->
+
+
+    <!--</LinearLayout>-->
+
+    <!--<ImageView-->
+    <!--android:id="@+id/bgapp"-->
+    <!--android:layout_width="526dp"-->
+    <!--android:layout_height="900dp"-->
+    <!--android:layout_marginStart="8dp"-->
+    <!--android:layout_marginEnd="8dp"-->
+    <!--android:scaleType="fitXY"-->
+    <!--android:src="@drawable/bgapp"-->
+    <!--app:layout_constraintEnd_toEndOf="parent"-->
+    <!--app:layout_constraintHorizontal_bias="0.923"-->
+    <!--app:layout_constraintStart_toStartOf="parent"-->
+    <!--app:layout_constraintTop_toTopOf="parent" />-->
+
+    <!--&lt;!&ndash;bootom bar&ndash;&gt;-->
+    <!--<RelativeLayout-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="match_parent">-->
+
+    <!--<android.support.design.widget.CoordinatorLayout-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="match_parent">-->
+
+    <!--<android.support.design.widget.BottomNavigationView-->
+    <!--android:id="@+id/bottom_navigation_id"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_gravity="bottom"-->
+    <!--android:background="?android:attr/windowBackground"-->
+    <!--app:menu="@menu/navigation_menu"-->
+    <!--app:theme="@style/BottomNavigationTheme" />-->
+
+    <!--</android.support.design.widget.CoordinatorLayout>-->
+
+    <!--</RelativeLayout>-->
+
+    <!--</android.support.constraint.ConstraintLayout>-->
 
     <!--bootom bar-->
     <RelativeLayout

@@ -2,27 +2,25 @@ package br.com.sae.iot.ui.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
 
 import br.com.sae.iot.R;
+import br.com.sae.iot.ui.fragments.HomeFragment;
+import br.com.sae.iot.ui.fragments.IndustryFragment;
 
 /**
  * @author cassiopaixao
  */
 
-public class MainActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener {
+public class MainActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener, View.OnClickListener {
 
-    private ImageView bgapp, clover;
-    private LinearLayout textsplash, texthome, menus;
-    private Animation frombottom;
+    private Toolbar toolbar;
     private BottomNavigationView bottomNavigationView;
 
     @Override
@@ -30,23 +28,13 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        frombottom = AnimationUtils.loadAnimation(this, R.anim.frombottom);
-
-        bgapp = (ImageView) findViewById(R.id.bgapp);
-        clover = (ImageView) findViewById(R.id.clover);
-        textsplash = (LinearLayout) findViewById(R.id.textsplash);
-        texthome = (LinearLayout) findViewById(R.id.texthome);
-        menus = (LinearLayout) findViewById(R.id.menus);
-
-        bgapp.animate().translationY(-1900).setDuration(800).setStartDelay(300);
-        clover.animate().alpha(0).setDuration(800).setStartDelay(600);
-        textsplash.animate().translationY(140).alpha(0).setDuration(800).setStartDelay(300);
-
-        texthome.startAnimation(frombottom);
-        menus.startAnimation(frombottom);
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
 
         bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottom_navigation_id);
         bottomNavigationView.setOnNavigationItemSelectedListener(this);
+
+        displaySelectedScreen(R.id.home_id);
 
     }
 
@@ -55,28 +43,36 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
     }
 
 
-    @Override
-    public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+    private void displaySelectedScreen(int itemId) {
 
-        int id = menuItem.getItemId();
-        switch (id) {
+        Fragment fragment = null;
+
+        switch (itemId) {
             case R.id.home_id:
-                startActivity(new Intent(this, MainActivity.class));
-                return true;
-
+                fragment = new HomeFragment();
+                break;
             case R.id.business_id:
-                startActivity(new Intent(this, IndustryActivity.class));
-                return true;
-
-            case R.id.area_id:
-                startActivity(new Intent(this, HomeActivity.class));
-                return true;
-
-            case R.id.product_id:
-                return true;
-
+                fragment = new IndustryFragment();
+                break;
         }
-        return false;
+
+        if (fragment != null) {
+            FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+            ft.replace(R.id.main_container_wrapper, fragment);
+            ft.commit();
+        }
+    }
+
+
+    @Override
+    public boolean onNavigationItemSelected(MenuItem item) {
+        displaySelectedScreen(item.getItemId());
+        return true;
+    }
+
+    @Override
+    public void onClick(View v) {
+        displaySelectedScreen(v.getId());
     }
 
 }
