@@ -8,15 +8,21 @@
         android:title="@string/home" />
 
     <item
+        android:id="@+id/business_id"
+        android:icon="@drawable/business"
+        android:orderInCategory="2"
+        android:title="@string/business" />
+
+    <item
         android:id="@+id/area_id"
         android:icon="@drawable/area"
-        android:orderInCategory="2"
+        android:orderInCategory="3"
         android:title="@string/area" />
 
     <item
         android:id="@+id/product_id"
         android:icon="@drawable/product"
-        android:orderInCategory="3"
+        android:orderInCategory="4"
         android:title="@string/product" />
 
 </menu>

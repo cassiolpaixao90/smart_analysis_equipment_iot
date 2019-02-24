@@ -18,7 +18,7 @@ import br.com.sae.iot.R;
  * @author cassiopaixao
  */
 
-public class MainActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener  {
+public class MainActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener {
 
     private ImageView bgapp, clover;
     private LinearLayout textsplash, texthome, menus;
@@ -50,7 +50,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
 
     }
 
-    public void goToHome(View view){
+    public void goToHome(View view) {
         startActivity(new Intent(this, HomeActivity.class));
     }
 
@@ -62,6 +62,10 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         switch (id) {
             case R.id.home_id:
                 startActivity(new Intent(this, MainActivity.class));
+                return true;
+
+            case R.id.business_id:
+                startActivity(new Intent(this, IndustryActivity.class));
                 return true;
 
             case R.id.area_id:
