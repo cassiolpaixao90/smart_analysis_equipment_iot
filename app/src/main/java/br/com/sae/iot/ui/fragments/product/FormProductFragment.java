@@ -1,4 +1,4 @@
-package br.com.sae.iot.ui.fragments.IndustryArea;
+package br.com.sae.iot.ui.fragments.product;
 
 import android.os.AsyncTask;
 import android.os.Build;
@@ -6,44 +6,39 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
-import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ListView;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Toast;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import br.com.sae.iot.R;
 import br.com.sae.iot.dao.IndustryAreaDAO;
+import br.com.sae.iot.dao.ProductDAO;
 import br.com.sae.iot.database.SaeDatabase;
 import br.com.sae.iot.model.IndustryArea;
-import br.com.sae.iot.ui.adapter.IndustryAreaAdapter;
+import br.com.sae.iot.model.Product;
+import br.com.sae.iot.ui.fragments.IndustryArea.FormAreaFragment;
+import br.com.sae.iot.utils.FormValidator;
 
-public class ListAreaFragment extends Fragment implements View.OnClickListener {
+public class FormProductFragment extends Fragment implements View.OnClickListener {
 
     private View mView;
-    private ListView mListView;
-    private List<IndustryArea> industryAreas;
-    private FloatingActionButton floatingActionButton;
-
+    private EditText mEditTextName;
+    private Button mButtonSave;
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         ((AppCompatActivity) getActivity()).getSupportActionBar().show();
-        mView = inflater.inflate(R.layout.fragment_area, container, false);
-        floatingActionButton = (FloatingActionButton) mView.findViewById(R.id.fab_area);
-        floatingActionButton.setOnClickListener(this);
-        this.industryAreas = new ArrayList<>();
-        new QueryDataTask().execute();
+        mView = inflater.inflate(R.layout.fragment_form_product, container, false);
+        initializeFields();
         return mView;
     }
 
@@ -52,35 +47,42 @@ public class ListAreaFragment extends Fragment implements View.OnClickListener {
         super.onViewCreated(view, savedInstanceState);
     }
 
-    private void initializeList() {
-        mListView = mView.findViewById(R.id.list_areas_id);
-        IndustryAreaAdapter adapter = new IndustryAreaAdapter(mView.getContext(), industryAreas);
-        mListView.setAdapter(adapter);
+    @Override
+    public void onClick(View v) {
+        if (!formIsValid()) {
+            return;
+        }
+        new FormProductFragment.Task().execute();
     }
 
 
-    @Override
-    public void onClick(View v) {
-        Fragment fragment = new FormAreaFragment();
-        FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
-        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.replace(R.id.main_container_wrapper, fragment);
-        fragmentTransaction.addToBackStack("tag");
-        fragmentTransaction.commit();
+    private boolean formIsValid() {
+        EditText forms[] = {mEditTextName};
+        return FormValidator.isValid(getActivity(), forms);
+    }
+
+    private void initializeFields() {
+        this.mEditTextName = mView.findViewById(R.id.name_product_form_id);
+        this.mButtonSave = mView.findViewById(R.id.btn_save_form_product);
+        this.mButtonSave.setOnClickListener(this);
+    }
+
+    private Product getByProduct() {
+        return new Product(mEditTextName.getText().toString());
     }
 
     /**
      * @description Async Task para evitar tarefa pesada na thread de UI
      * evitando bloqueio
      */
-    private class QueryDataTask extends AsyncTask {
+    private class Task extends AsyncTask {
 
         @Override
-        protected Object doInBackground(Object[] objects) {
+        protected Object doInBackground(Object... params) {
             try {
                 SaeDatabase database = SaeDatabase.getInstance(mView.getContext());
-                IndustryAreaDAO dao = database.getIndustryAreaDao();
-                industryAreas = dao.all();
+                ProductDAO dao = database.getProductDao();
+                dao.save(getByProduct());
                 return false;
             } catch (Exception e) {
                 return true;
@@ -90,9 +92,8 @@ public class ListAreaFragment extends Fragment implements View.OnClickListener {
         @Override
         protected void onPostExecute(Object result) {
             super.onPostExecute(result);
-            if (industryAreas.size() > 0) {
-                initializeList();
-            }
+            mEditTextName.setText("");
+            Toast.makeText(mView.getContext(), "Salvo com sucesso!", Toast.LENGTH_LONG).show();
         }
 
         @Override
@@ -102,3 +103,6 @@ public class ListAreaFragment extends Fragment implements View.OnClickListener {
         }
     }
 }
+
+
+

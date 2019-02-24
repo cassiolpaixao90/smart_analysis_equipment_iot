@@ -31,6 +31,11 @@ public class Product implements Serializable {
     }
 
     @Ignore
+    public Product(String name) {
+        this.name = name;
+    }
+
+    @Ignore
     public Product(int id, String name, String problem, String problemArea) {
         this.id = id;
         this.name = name;

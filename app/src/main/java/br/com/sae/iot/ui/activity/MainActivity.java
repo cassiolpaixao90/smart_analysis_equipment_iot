@@ -14,6 +14,7 @@ import br.com.sae.iot.R;
 import br.com.sae.iot.ui.fragments.HomeFragment;
 import br.com.sae.iot.ui.fragments.IndustryArea.ListAreaFragment;
 import br.com.sae.iot.ui.fragments.IndustryFragment;
+import br.com.sae.iot.ui.fragments.product.ListProductFragment;
 
 /**
  * @author cassiopaixao
@@ -57,6 +58,9 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
                 break;
             case R.id.area_id:
                 fragment = new ListAreaFragment();
+                break;
+            case R.id.product_id:
+                fragment = new ListProductFragment();
                 break;
         }
 

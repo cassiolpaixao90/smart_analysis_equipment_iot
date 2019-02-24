@@ -16,4 +16,8 @@
     <string name="title_area">Opa, vamos criar uma nova área?!</string>
     <string name="name_area">Nome da Àrea</string>
 
+    <!--product-->
+    <string name="title_product">Opa, vamos criar um novo produto?!</string>
+    <string name="name_product">Nome do Produto</string>
+
 </resources>

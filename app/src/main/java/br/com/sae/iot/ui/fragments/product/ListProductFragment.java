@@ -1,4 +1,4 @@
-package br.com.sae.iot.ui.fragments.IndustryArea;
+package br.com.sae.iot.ui.fragments.product;
 
 import android.os.AsyncTask;
 import android.os.Build;
@@ -21,16 +21,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 import br.com.sae.iot.R;
-import br.com.sae.iot.dao.IndustryAreaDAO;
+import br.com.sae.iot.dao.ProductDAO;
 import br.com.sae.iot.database.SaeDatabase;
-import br.com.sae.iot.model.IndustryArea;
-import br.com.sae.iot.ui.adapter.IndustryAreaAdapter;
+import br.com.sae.iot.model.Product;
+import br.com.sae.iot.ui.adapter.ProductAdapter;
 
-public class ListAreaFragment extends Fragment implements View.OnClickListener {
+public class ListProductFragment extends Fragment implements View.OnClickListener {
 
     private View mView;
     private ListView mListView;
-    private List<IndustryArea> industryAreas;
+    private List<Product> products;
     private FloatingActionButton floatingActionButton;
 
 
@@ -39,11 +39,11 @@ public class ListAreaFragment extends Fragment implements View.OnClickListener {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         ((AppCompatActivity) getActivity()).getSupportActionBar().show();
-        mView = inflater.inflate(R.layout.fragment_area, container, false);
-        floatingActionButton = (FloatingActionButton) mView.findViewById(R.id.fab_area);
+        mView = inflater.inflate(R.layout.fragment_product, container, false);
+        floatingActionButton = (FloatingActionButton) mView.findViewById(R.id.fab_product);
         floatingActionButton.setOnClickListener(this);
-        this.industryAreas = new ArrayList<>();
-        new QueryDataTask().execute();
+        this.products = new ArrayList<>();
+        new ListProductFragment.QueryDataTask().execute();
         return mView;
     }
 
@@ -53,15 +53,15 @@ public class ListAreaFragment extends Fragment implements View.OnClickListener {
     }
 
     private void initializeList() {
-        mListView = mView.findViewById(R.id.list_areas_id);
-        IndustryAreaAdapter adapter = new IndustryAreaAdapter(mView.getContext(), industryAreas);
+        mListView = mView.findViewById(R.id.list_product_id);
+        ProductAdapter adapter = new ProductAdapter(mView.getContext(), products);
         mListView.setAdapter(adapter);
     }
 
 
     @Override
     public void onClick(View v) {
-        Fragment fragment = new FormAreaFragment();
+        Fragment fragment = new FormProductFragment();
         FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.main_container_wrapper, fragment);
@@ -79,8 +79,8 @@ public class ListAreaFragment extends Fragment implements View.OnClickListener {
         protected Object doInBackground(Object[] objects) {
             try {
                 SaeDatabase database = SaeDatabase.getInstance(mView.getContext());
-                IndustryAreaDAO dao = database.getIndustryAreaDao();
-                industryAreas = dao.all();
+                ProductDAO dao = database.getProductDao();
+                products = dao.all();
                 return false;
             } catch (Exception e) {
                 return true;
@@ -90,7 +90,7 @@ public class ListAreaFragment extends Fragment implements View.OnClickListener {
         @Override
         protected void onPostExecute(Object result) {
             super.onPostExecute(result);
-            if (industryAreas.size() > 0) {
+            if (products.size() > 0) {
                 initializeList();
             }
         }
