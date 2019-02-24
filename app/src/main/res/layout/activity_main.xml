@@ -106,6 +106,7 @@
 
                 <ImageView
                     android:layout_width="100dp"
+                    android:onClick="goToHome"
                     android:layout_height="100dp"
                     android:layout_marginBottom="4dp"
                     android:src="@drawable/industry" />
@@ -130,6 +131,7 @@
                 <ImageView
                     android:layout_width="100dp"
                     android:layout_height="100dp"
+                    android:onClick="goToHome"
                     android:layout_marginBottom="4dp"
                     android:src="@drawable/industry" />
 
@@ -165,6 +167,7 @@
                     android:layout_width="100dp"
                     android:layout_height="100dp"
                     android:layout_marginBottom="4dp"
+                    android:onClick="goToHome"
                     android:src="@drawable/industry" />
 
                 <TextView
@@ -187,6 +190,7 @@
                 <ImageView
                     android:layout_width="100dp"
                     android:layout_height="100dp"
+                    android:onClick="goToHome"
                     android:layout_marginBottom="4dp"
                     android:src="@drawable/industry" />
 
@@ -228,5 +232,26 @@
         <!--android:clickable="true"-->
         <!--android:src="@drawable/ic_add"-->
         <!--android:focusable="true" />-->
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <android.support.design.widget.CoordinatorLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <android.support.design.widget.BottomNavigationView
+                android:id="@+id/bottom_navigation_id"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                android:background="?android:attr/windowBackground"
+                app:menu="@menu/navigation_menu"
+                app:theme="@style/BottomNavigationTheme"
+                />
+
+        </android.support.design.widget.CoordinatorLayout>
+
+    </RelativeLayout>
 
 </android.support.constraint.ConstraintLayout>
