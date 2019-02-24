@@ -26,9 +26,6 @@ public class IndustryFragment extends Fragment implements View.OnClickListener {
     private View mView;
     private EditText mEditTextName;
     private Button mButtonSave;
-    private IndustryDAO dao;
-    private SaeDatabase database;
-    private Industry industry;
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Nullable
@@ -66,7 +63,7 @@ public class IndustryFragment extends Fragment implements View.OnClickListener {
     }
 
     private Industry getByIndustry() {
-        return this.industry = new Industry(this.mEditTextName.getText().toString());
+        return new Industry(this.mEditTextName.getText().toString());
     }
 
     /**

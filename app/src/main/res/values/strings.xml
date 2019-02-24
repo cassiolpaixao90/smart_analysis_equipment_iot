@@ -10,5 +10,6 @@
     <!--messages-->
     <string name="msg_erro_obrigatorio">Campo Obrigatório</string>
     <string name="title_company">Opa, vamos criar uma nova fábrica?!</string>
+    <string name="empty_list">Nenhum item cadastrado</string>
 
 </resources>

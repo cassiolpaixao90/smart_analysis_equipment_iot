@@ -12,6 +12,7 @@ import android.view.View;
 
 import br.com.sae.iot.R;
 import br.com.sae.iot.ui.fragments.HomeFragment;
+import br.com.sae.iot.ui.fragments.IndustryArea.ListAreaFragment;
 import br.com.sae.iot.ui.fragments.IndustryFragment;
 
 /**
@@ -53,6 +54,9 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
                 break;
             case R.id.business_id:
                 fragment = new IndustryFragment();
+                break;
+            case R.id.area_id:
+                fragment = new ListAreaFragment();
                 break;
         }
 
