@@ -8,6 +8,8 @@ import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,6 +18,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import br.com.sae.iot.R;
@@ -27,10 +30,10 @@ import br.com.sae.iot.ui.adapter.IndustryAreaAdapter;
 public class ListAreaFragment extends Fragment implements View.OnClickListener {
 
     private View mView;
-    private TextView listEmpty;
     private ListView mListView;
     private List<IndustryArea> industryAreas;
     private FloatingActionButton floatingActionButton;
+
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Nullable
@@ -38,15 +41,11 @@ public class ListAreaFragment extends Fragment implements View.OnClickListener {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         ((AppCompatActivity) getActivity()).getSupportActionBar().show();
         mView = inflater.inflate(R.layout.fragment_area, container, false);
-        listEmpty = (TextView) mView.findViewById(R.id.area_empty);
         floatingActionButton = (FloatingActionButton) mView.findViewById(R.id.fab_area);
         floatingActionButton.setOnClickListener(this);
-        listEmpty.setEnabled(true);
+        this.industryAreas = new ArrayList<>();
         new QueryDataTask().execute();
         return mView;
-    }
-
-    private void formIndustryArea() {
     }
 
     @Override
@@ -55,15 +54,20 @@ public class ListAreaFragment extends Fragment implements View.OnClickListener {
     }
 
     private void initializeList() {
-        listEmpty.setEnabled(false);
         mListView = mView.findViewById(R.id.list_areas_id);
         IndustryAreaAdapter adapter = new IndustryAreaAdapter(mView.getContext(), industryAreas);
         mListView.setAdapter(adapter);
     }
 
+
     @Override
     public void onClick(View v) {
-
+        Fragment fragment = new FormAreaFragment();
+        FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.main_container_wrapper, fragment);
+        fragmentTransaction.addToBackStack("tag");
+        fragmentTransaction.commit();
     }
 
     /**

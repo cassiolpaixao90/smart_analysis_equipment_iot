@@ -12,4 +12,8 @@
     <string name="title_company">Opa, vamos criar uma nova fábrica?!</string>
     <string name="empty_list">Nenhum item cadastrado</string>
 
+    <!--area-->
+    <string name="title_area">Opa, vamos criar uma nova área?!</string>
+    <string name="name_area">Nome da Àrea</string>
+
 </resources>

@@ -12,11 +12,12 @@ import static android.arch.persistence.room.ForeignKey.CASCADE;
 /**
  * @author cassiopaixao
  */
-@Entity(foreignKeys = @ForeignKey(entity = IndustryArea.class,
-        parentColumns = "id",
-        childColumns = "industryAreaId",
-        onDelete = CASCADE))
+//@Entity(foreignKeys = @ForeignKey(entity = IndustryArea.class,
+//        parentColumns = "id",
+//        childColumns = "industryAreaId",
+//        onDelete = CASCADE))
 
+@Entity
 public class Product implements Serializable {
 
 
@@ -25,18 +26,16 @@ public class Product implements Serializable {
     private String name;
     private String problem;
     private String problemArea;
-    private int industryAreaId;
 
     public Product() {
     }
 
     @Ignore
-    public Product(int id, String name, String problem, String problemArea, int industryAreaId) {
+    public Product(int id, String name, String problem, String problemArea) {
         this.id = id;
         this.name = name;
         this.problem = problem;
         this.problemArea = problemArea;
-        this.industryAreaId = industryAreaId;
     }
 
     public int getId() {
@@ -71,11 +70,4 @@ public class Product implements Serializable {
         this.problemArea = problemArea;
     }
 
-    public int getIndustryAreaId() {
-        return industryAreaId;
-    }
-
-    public void setIndustryAreaId(int industryAreaId) {
-        this.industryAreaId = industryAreaId;
-    }
 }

@@ -12,27 +12,30 @@ import static android.arch.persistence.room.ForeignKey.CASCADE;
 /**
  * @author cassiopaixao
  */
-@Entity(foreignKeys = @ForeignKey(entity = Industry.class,
-        parentColumns = "id",
-        childColumns = "industryId",
-        onDelete = CASCADE))
+//@Entity(foreignKeys = @ForeignKey(entity = Industry.class,
+//        parentColumns = "id",
+//        childColumns = "industryId",
+//        onDelete = CASCADE))
+@Entity
 public class IndustryArea implements Serializable {
 
 
     @PrimaryKey(autoGenerate = true)
     private int id = 0;
     private String name;
-    private int industryId;
-
 
     public IndustryArea() {
     }
 
     @Ignore
-    public IndustryArea(int id, String name, int industryId) {
+    public IndustryArea(String name) {
+        this.name = name;
+    }
+
+    @Ignore
+    public IndustryArea(int id, String name) {
         this.id = id;
         this.name = name;
-        this.industryId = industryId;
     }
 
     public int getId() {
@@ -51,11 +54,4 @@ public class IndustryArea implements Serializable {
         this.name = name;
     }
 
-    public int getIndustryId() {
-        return industryId;
-    }
-
-    public void setIndustryId(int industryId) {
-        this.industryId = industryId;
-    }
 }

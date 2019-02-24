@@ -1,4 +1,4 @@
-package br.com.sae.iot.ui.fragments;
+package br.com.sae.iot.ui.fragments.IndustryArea;
 
 import android.os.AsyncTask;
 import android.os.Build;
@@ -15,13 +15,15 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import java.util.List;
+
 import br.com.sae.iot.R;
-import br.com.sae.iot.dao.IndustryDAO;
+import br.com.sae.iot.dao.IndustryAreaDAO;
 import br.com.sae.iot.database.SaeDatabase;
-import br.com.sae.iot.model.Industry;
+import br.com.sae.iot.model.IndustryArea;
 import br.com.sae.iot.utils.FormValidator;
 
-public class IndustryFragment extends Fragment implements View.OnClickListener {
+public class FormAreaFragment extends Fragment implements View.OnClickListener {
 
     private View mView;
     private EditText mEditTextName;
@@ -32,7 +34,7 @@ public class IndustryFragment extends Fragment implements View.OnClickListener {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         ((AppCompatActivity) getActivity()).getSupportActionBar().show();
-        mView = inflater.inflate(R.layout.fragment_industry, container, false);
+        mView = inflater.inflate(R.layout.fragment_form_area, container, false);
         initializeFields();
         return mView;
     }
@@ -47,7 +49,7 @@ public class IndustryFragment extends Fragment implements View.OnClickListener {
         if (!formIsValid()) {
             return;
         }
-        new IndustryTask().execute();
+        new FormAreaFragment.AreaTask().execute();
     }
 
 
@@ -57,27 +59,29 @@ public class IndustryFragment extends Fragment implements View.OnClickListener {
     }
 
     private void initializeFields() {
-        this.mEditTextName = mView.findViewById(R.id.name_company_id);
-        this.mButtonSave = mView.findViewById(R.id.btn_save);
+        this.mEditTextName = mView.findViewById(R.id.name_area_form_id);
+        this.mButtonSave = mView.findViewById(R.id.btn_save_form_area);
         this.mButtonSave.setOnClickListener(this);
     }
 
-    private Industry getByIndustry() {
-        return new Industry(this.mEditTextName.getText().toString());
+    private IndustryArea getByIndustryArea() {
+        return new IndustryArea(mEditTextName.getText().toString());
     }
 
     /**
      * @description Async Task para evitar tarefa pesada na thread de UI
      * evitando bloqueio
      */
-    private class IndustryTask extends AsyncTask {
+    private class AreaTask extends AsyncTask {
 
         @Override
         protected Object doInBackground(Object... params) {
             try {
                 SaeDatabase database = SaeDatabase.getInstance(mView.getContext());
-                IndustryDAO dao = database.getIndustryDao();
-                dao.save(getByIndustry());
+                IndustryAreaDAO dao = database.getIndustryAreaDao();
+                dao.save(getByIndustryArea());
+                List<IndustryArea> areas = dao.all();
+
                 return false;
             } catch (Exception e) {
                 return true;
@@ -97,7 +101,6 @@ public class IndustryFragment extends Fragment implements View.OnClickListener {
             Toast.makeText(mView.getContext(), "Error" + result.toString(), Toast.LENGTH_LONG).show();
         }
     }
-
-
 }
+
 

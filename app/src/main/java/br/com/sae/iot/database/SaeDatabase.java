@@ -1,9 +1,12 @@
 package br.com.sae.iot.database;
 
+import android.arch.persistence.db.SupportSQLiteDatabase;
 import android.arch.persistence.room.Database;
 import android.arch.persistence.room.Room;
 import android.arch.persistence.room.RoomDatabase;
+import android.arch.persistence.room.migration.Migration;
 import android.content.Context;
+import android.support.annotation.NonNull;
 
 import br.com.sae.iot.dao.IndustryAreaDAO;
 import br.com.sae.iot.dao.IndustryDAO;
@@ -21,7 +24,9 @@ public abstract class SaeDatabase extends RoomDatabase {
     private static final String NAME_DB = "industry.db";
 
     public abstract IndustryDAO getIndustryDao();
+
     public abstract IndustryAreaDAO getIndustryAreaDao();
+
     public abstract ProductDAO getProductDao();
 
     public static SaeDatabase getInstance(Context context) {
@@ -29,6 +34,13 @@ public abstract class SaeDatabase extends RoomDatabase {
                 .databaseBuilder(context, SaeDatabase.class, NAME_DB)
                 .allowMainThreadQueries()
                 .fallbackToDestructiveMigration()
+                .addMigrations(new Migration(1, 2) {
+                    @Override
+                    public void migrate(@NonNull SupportSQLiteDatabase database) {
+                        database.execSQL("DROP TABLE IF EXISTS `IndustryArea`");
+                        database.execSQL("CREATE TABLE IF NOT EXISTS `IndustryArea` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `name` TEXT)");
+                    }
+                })
                 .build();
 
     }

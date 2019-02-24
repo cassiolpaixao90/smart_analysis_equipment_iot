@@ -62,6 +62,8 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
 
         if (fragment != null) {
             FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+            //adiciona um fragment na pilha quando pressbuttonback volta pro fragment anterior
+//            ft.addToBackStack("tag");
             ft.replace(R.id.main_container_wrapper, fragment);
             ft.commit();
         }
