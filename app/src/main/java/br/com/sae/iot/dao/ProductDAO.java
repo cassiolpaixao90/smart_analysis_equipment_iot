@@ -29,4 +29,6 @@ public interface ProductDAO {
     @Update
     void update(Product product);
 
+    @Query("SELECT name FROM product")
+    List<String> allName();
 }

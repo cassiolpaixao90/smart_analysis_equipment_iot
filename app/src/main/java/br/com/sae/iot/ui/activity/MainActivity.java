@@ -40,11 +40,6 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
 
     }
 
-    public void goToHome(View view) {
-        startActivity(new Intent(this, HomeActivity.class));
-    }
-
-
     private void displaySelectedScreen(int itemId) {
 
         Fragment fragment = null;

@@ -22,6 +22,9 @@ public interface IndustryAreaDAO {
     @Query("SELECT * FROM industryArea")
     List<IndustryArea> all();
 
+    @Query("SELECT name FROM industryArea")
+    List<String> allName();
+
     @Delete
     void remove(IndustryArea industryArea);
 

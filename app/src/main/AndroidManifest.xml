@@ -17,15 +17,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".ui.activity.SplashActivity"
-            android:configChanges="orientation|keyboardHidden|screenSize" />
-        <activity
-            android:name=".ui.activity.HomeActivity"
-            android:configChanges="orientation|keyboardHidden|screenSize" />
-        <activity
-            android:name=".ui.activity.IndustryActivity"
-            android:configChanges="orientation|keyboardHidden|screenSize"></activity>
     </application>
 
 </manifest>

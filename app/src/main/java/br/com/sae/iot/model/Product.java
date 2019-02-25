@@ -24,8 +24,6 @@ public class Product implements Serializable {
     @PrimaryKey(autoGenerate = true)
     private int id = 0;
     private String name;
-    private String problem;
-    private String problemArea;
 
     public Product() {
     }
@@ -36,11 +34,9 @@ public class Product implements Serializable {
     }
 
     @Ignore
-    public Product(int id, String name, String problem, String problemArea) {
+    public Product(int id, String name) {
         this.id = id;
         this.name = name;
-        this.problem = problem;
-        this.problemArea = problemArea;
     }
 
     public int getId() {
@@ -59,20 +55,5 @@ public class Product implements Serializable {
         this.name = name;
     }
 
-    public String getProblem() {
-        return problem;
-    }
-
-    public void setProblem(String problem) {
-        this.problem = problem;
-    }
-
-    public String getProblemArea() {
-        return problemArea;
-    }
-
-    public void setProblemArea(String problemArea) {
-        this.problemArea = problemArea;
-    }
 
 }

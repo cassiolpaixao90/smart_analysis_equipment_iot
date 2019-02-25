@@ -20,4 +20,10 @@
     <string name="title_product">Opa, vamos criar um novo produto?!</string>
     <string name="name_product">Nome do Produto</string>
 
+    <!--problem-->
+    <string name="title_problem">Opa, vamos relatar o problema?!</string>
+    <string name="name_problem">Titulo do problema</string>
+    <string name="select_area_problem">Selecione uma área</string>
+    <string name="select_product_problem">Selecione o produto</string>
+
 </resources>

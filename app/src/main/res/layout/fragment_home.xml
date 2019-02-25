@@ -108,7 +108,6 @@
                     android:layout_width="100dp"
                     android:layout_height="100dp"
                     android:layout_marginBottom="4dp"
-                    android:onClick="goToHome"
                     android:src="@drawable/industry" />
 
                 <TextView
@@ -132,7 +131,6 @@
                     android:layout_width="100dp"
                     android:layout_height="100dp"
                     android:layout_marginBottom="4dp"
-                    android:onClick="goToHome"
                     android:src="@drawable/industry" />
 
                 <TextView
@@ -164,7 +162,6 @@
                     android:layout_width="100dp"
                     android:layout_height="100dp"
                     android:layout_marginBottom="4dp"
-                    android:onClick="goToHome"
                     android:src="@drawable/industry" />
 
                 <TextView
@@ -188,7 +185,6 @@
                     android:layout_width="100dp"
                     android:layout_height="100dp"
                     android:layout_marginBottom="4dp"
-                    android:onClick="goToHome"
                     android:src="@drawable/industry" />
 
                 <TextView
