@@ -80,7 +80,7 @@ public class ListProblemFragment extends Fragment implements View.OnClickListene
             try {
                 SaeDatabase database = SaeDatabase.getInstance(mView.getContext());
                 ProblemDAO dao = database.getProblemDao();
-                problems = dao.all();
+                problems = dao.problemByIndustry(1);
                 return false;
             } catch (Exception e) {
                 return true;

@@ -1,5 +1,6 @@
 package br.com.sae.iot.model;
 
+import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.ForeignKey;
 import android.arch.persistence.room.PrimaryKey;
@@ -24,6 +25,8 @@ public class Problem implements Serializable {
     private String areaProblem;
     private String productProblem;
     private int industryId;
+    @ColumnInfo(typeAffinity = ColumnInfo.BLOB)
+    private byte[] image;
 
     public Problem() {
     }

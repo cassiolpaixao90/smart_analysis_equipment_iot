@@ -51,9 +51,9 @@ public class ProblemAdapter extends BaseAdapter {
 
         if (view == null) {
             LayoutInflater inflater = LayoutInflater.from(viewGroup.getContext());
-            view = inflater.inflate(R.layout.adapter_industry_area, viewGroup, false);
+            view = inflater.inflate(R.layout.adapter_problem, viewGroup, false);
             holder = new ViewHolder();
-            holder.txtNameArea = view.findViewById(R.id.name_area);
+            holder.txtNameArea = view.findViewById(R.id.problem_title_id);
 
             view.setTag(holder);
         } else {
@@ -61,7 +61,7 @@ public class ProblemAdapter extends BaseAdapter {
         }
 
         Problem problem = problems.get(position);
-        holder.txtNameArea.setText(problem.getDescProblem());
+        holder.txtNameArea.setText(problem.getTitleProblem());
 
         return view;
     }
