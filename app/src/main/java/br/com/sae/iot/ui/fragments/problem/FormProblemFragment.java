@@ -23,10 +23,12 @@ import java.util.List;
 
 import br.com.sae.iot.R;
 import br.com.sae.iot.dao.IndustryAreaDAO;
+import br.com.sae.iot.dao.IndustryDAO;
+import br.com.sae.iot.dao.ProblemDAO;
 import br.com.sae.iot.dao.ProductDAO;
 import br.com.sae.iot.database.SaeDatabase;
 import br.com.sae.iot.model.Industry;
-import br.com.sae.iot.model.Product;
+import br.com.sae.iot.model.Problem;
 import br.com.sae.iot.utils.FormValidator;
 
 public class FormProblemFragment extends Fragment implements View.OnClickListener{
@@ -38,6 +40,7 @@ public class FormProblemFragment extends Fragment implements View.OnClickListene
     private List<String> areas;
     private List<String> products;
     private Industry industry;
+    private Problem problem;
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Nullable
@@ -45,13 +48,14 @@ public class FormProblemFragment extends Fragment implements View.OnClickListene
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         ((AppCompatActivity) getActivity()).getSupportActionBar().show();
         mView = inflater.inflate(R.layout.fragment_form_problem, container, false);
-        this.industry = new Industry();
+        industry = new Industry();
+        problem = new Problem();
         spinnerArea = (Spinner) mView.findViewById(R.id.selected_area);
         spinnerArea.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 String item = parent.getItemAtPosition(position).toString();
-                industry.setAreaProblem(item);
+                problem.setAreaProblem(item);
             }
 
             @Override
@@ -64,7 +68,7 @@ public class FormProblemFragment extends Fragment implements View.OnClickListene
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 String item = parent.getItemAtPosition(position).toString();
-                industry.setProductProblem(item);
+                problem.setProductProblem(item);
             }
 
             @Override
@@ -102,6 +106,8 @@ public class FormProblemFragment extends Fragment implements View.OnClickListene
         if (!formIsValid()) {
             return;
         }
+        problem.setIndustryId(1);
+        problem.setTitleProblem(mEditTextName.getText().toString());
         new FormProblemFragment.Task().execute();
     }
 
@@ -117,11 +123,6 @@ public class FormProblemFragment extends Fragment implements View.OnClickListene
         this.mButtonSave.setOnClickListener(this);
     }
 
-    private Product getByProduct() {
-        return new Product(mEditTextName.getText().toString());
-    }
-
-
     /**
      * @description Async Task para evitar tarefa pesada na thread de UI
      * evitando bloqueio
@@ -132,8 +133,10 @@ public class FormProblemFragment extends Fragment implements View.OnClickListene
         protected Object doInBackground(Object... params) {
             try {
                 SaeDatabase database = SaeDatabase.getInstance(mView.getContext());
-                ProductDAO dao = database.getProductDao();
-                dao.save(getByProduct());
+                ProblemDAO dao = database.getProblemDao();
+                dao.save(problem);
+                List<Problem> problems = dao.problemByIndustry(1);
+
                 return false;
             } catch (Exception e) {
                 return true;

@@ -10,15 +10,17 @@ import android.support.annotation.NonNull;
 
 import br.com.sae.iot.dao.IndustryAreaDAO;
 import br.com.sae.iot.dao.IndustryDAO;
+import br.com.sae.iot.dao.ProblemDAO;
 import br.com.sae.iot.dao.ProductDAO;
 import br.com.sae.iot.model.Industry;
 import br.com.sae.iot.model.IndustryArea;
+import br.com.sae.iot.model.Problem;
 import br.com.sae.iot.model.Product;
 
 /**
  * @author cassiopaixao
  */
-@Database(entities = {Industry.class, IndustryArea.class, Product.class}, version = 1, exportSchema = false)
+@Database(entities = {Industry.class, IndustryArea.class, Product.class, Problem.class}, version = 1, exportSchema = false)
 public abstract class SaeDatabase extends RoomDatabase {
 
     private static final String NAME_DB = "industry.db";
@@ -28,6 +30,8 @@ public abstract class SaeDatabase extends RoomDatabase {
     public abstract IndustryAreaDAO getIndustryAreaDao();
 
     public abstract ProductDAO getProductDao();
+
+    public abstract ProblemDAO getProblemDao();
 
     public static SaeDatabase getInstance(Context context) {
         return Room

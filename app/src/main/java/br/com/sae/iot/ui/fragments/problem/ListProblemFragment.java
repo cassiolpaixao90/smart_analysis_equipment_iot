@@ -21,16 +21,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 import br.com.sae.iot.R;
-import br.com.sae.iot.dao.IndustryDAO;
+import br.com.sae.iot.dao.ProblemDAO;
 import br.com.sae.iot.database.SaeDatabase;
-import br.com.sae.iot.model.Industry;
+import br.com.sae.iot.model.Problem;
 import br.com.sae.iot.ui.adapter.ProblemAdapter;
 
 public class ListProblemFragment extends Fragment implements View.OnClickListener {
 
     private View mView;
     private ListView mListView;
-    private List<Industry> industries;
+    private List<Problem> problems;
     private FloatingActionButton floatingActionButton;
 
 
@@ -42,7 +42,7 @@ public class ListProblemFragment extends Fragment implements View.OnClickListene
         mView = inflater.inflate(R.layout.fragment_problem, container, false);
         floatingActionButton = (FloatingActionButton) mView.findViewById(R.id.fab_problem);
         floatingActionButton.setOnClickListener(this);
-        this.industries = new ArrayList<>();
+        this.problems = new ArrayList<>();
         new ListProblemFragment.QueryDataTask().execute();
         return mView;
     }
@@ -54,7 +54,7 @@ public class ListProblemFragment extends Fragment implements View.OnClickListene
 
     private void initializeList() {
         mListView = mView.findViewById(R.id.list_problem_id);
-        ProblemAdapter adapter = new ProblemAdapter(mView.getContext(), industries);
+        ProblemAdapter adapter = new ProblemAdapter(mView.getContext(), problems);
         mListView.setAdapter(adapter);
     }
 
@@ -79,8 +79,8 @@ public class ListProblemFragment extends Fragment implements View.OnClickListene
         protected Object doInBackground(Object[] objects) {
             try {
                 SaeDatabase database = SaeDatabase.getInstance(mView.getContext());
-                IndustryDAO dao = database.getIndustryDao();
-                industries = dao.all();
+                ProblemDAO dao = database.getProblemDao();
+                problems = dao.all();
                 return false;
             } catch (Exception e) {
                 return true;
@@ -90,7 +90,7 @@ public class ListProblemFragment extends Fragment implements View.OnClickListene
         @Override
         protected void onPostExecute(Object result) {
             super.onPostExecute(result);
-            if (industries.size() > 0) {
+            if (problems.size() > 0) {
                 initializeList();
             }
         }

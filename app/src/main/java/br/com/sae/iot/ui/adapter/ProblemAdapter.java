@@ -10,36 +10,36 @@ import android.widget.TextView;
 import java.util.List;
 
 import br.com.sae.iot.R;
-import br.com.sae.iot.model.Industry;
 import br.com.sae.iot.model.IndustryArea;
+import br.com.sae.iot.model.Problem;
 
 
 public class ProblemAdapter extends BaseAdapter {
 
-    private List<Industry> industries;
+    private List<Problem> problems;
     private Context context;
 
-    public ProblemAdapter(Context context, List<Industry> industries) {
+    public ProblemAdapter(Context context, List<Problem> problems) {
         this.context = context;
-        this.industries = industries;
+        this.problems = problems;
     }
 
     // Retorna a quantidade de elementos na lista
     @Override
     public int getCount() {
-        return industries.size();
+        return problems.size();
     }
 
     // Retorna a consumo de uma posição específica
     @Override
-    public Industry getItem(int posicao) {
-        return industries.get(posicao);
+    public Problem getItem(int posicao) {
+        return problems.get(posicao);
     }
 
     // Retorna o ID de uma posição específica
     @Override
     public long getItemId(int posicao) {
-        return industries.get(posicao).getId();
+        return problems.get(posicao).getId();
     }
 
     // Constrói as views que representam cada uma das linhas da lista
@@ -60,20 +60,20 @@ public class ProblemAdapter extends BaseAdapter {
             holder = (ViewHolder) view.getTag();
         }
 
-        Industry industry = industries.get(position);
-        holder.txtNameArea.setText(industry.getDescProblem());
+        Problem problem = problems.get(position);
+        holder.txtNameArea.setText(problem.getDescProblem());
 
         return view;
     }
 
-    public void update(List<Industry> industries) {
-        this.industries.clear();
-        this.industries.addAll(industries);
+    public void update(List<Problem> problems) {
+        this.problems.clear();
+        this.problems.addAll(problems);
         notifyDataSetChanged();
     }
 
     public void remove(IndustryArea industryArea) {
-        industries.remove(industryArea);
+        problems.remove(industryArea);
         notifyDataSetChanged();
     }
 

@@ -1,13 +1,10 @@
 package br.com.sae.iot.model;
 
 import android.arch.persistence.room.Entity;
-import android.arch.persistence.room.ForeignKey;
 import android.arch.persistence.room.Ignore;
 import android.arch.persistence.room.PrimaryKey;
 
 import java.io.Serializable;
-
-import static android.arch.persistence.room.ForeignKey.CASCADE;
 
 /**
  * @author cassiopaixao

@@ -16,10 +16,6 @@ public class Industry implements Serializable {
     private int id = 0;
     private String name;
 
-    private String descProblem;
-    private String areaProblem;
-    private String productProblem;
-
 
     public Industry() {
     }
@@ -27,14 +23,6 @@ public class Industry implements Serializable {
     @Ignore
     public Industry(String name) {
         this.name = name;
-    }
-
-    @Ignore
-    public Industry(String name, String descProblem, String areaProblem, String productProblem) {
-        this.name = name;
-        this.descProblem = descProblem;
-        this.areaProblem = areaProblem;
-        this.productProblem = productProblem;
     }
 
     public int getId() {
@@ -57,27 +45,4 @@ public class Industry implements Serializable {
         return id > 0;
     }
 
-    public String getDescProblem() {
-        return descProblem;
-    }
-
-    public void setDescProblem(String descProblem) {
-        this.descProblem = descProblem;
-    }
-
-    public String getAreaProblem() {
-        return areaProblem;
-    }
-
-    public void setAreaProblem(String areaProblem) {
-        this.areaProblem = areaProblem;
-    }
-
-    public String getProductProblem() {
-        return productProblem;
-    }
-
-    public void setProductProblem(String productProblem) {
-        this.productProblem = productProblem;
-    }
 }
