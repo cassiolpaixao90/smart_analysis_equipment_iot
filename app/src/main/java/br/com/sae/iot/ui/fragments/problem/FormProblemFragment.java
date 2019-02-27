@@ -1,8 +1,11 @@
 package br.com.sae.iot.ui.fragments.problem;
 
+import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
@@ -15,6 +18,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -23,7 +27,6 @@ import java.util.List;
 
 import br.com.sae.iot.R;
 import br.com.sae.iot.dao.IndustryAreaDAO;
-import br.com.sae.iot.dao.IndustryDAO;
 import br.com.sae.iot.dao.ProblemDAO;
 import br.com.sae.iot.dao.ProductDAO;
 import br.com.sae.iot.database.SaeDatabase;
@@ -31,16 +34,20 @@ import br.com.sae.iot.model.Industry;
 import br.com.sae.iot.model.Problem;
 import br.com.sae.iot.utils.FormValidator;
 
-public class FormProblemFragment extends Fragment implements View.OnClickListener{
+import static android.app.Activity.RESULT_OK;
+
+public class FormProblemFragment extends Fragment implements View.OnClickListener {
 
     private View mView;
     private EditText mEditTextName;
-    private Button mButtonSave;
+    private Button mButtonSave, mButtonCam;
     private Spinner spinnerArea, spinnerProduct;
     private List<String> areas;
     private List<String> products;
     private Industry industry;
     private Problem problem;
+    private ImageView imageView;
+    private static final int REQUEST_IMAGE = 101;
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Nullable
@@ -51,6 +58,19 @@ public class FormProblemFragment extends Fragment implements View.OnClickListene
         industry = new Industry();
         problem = new Problem();
         spinnerArea = (Spinner) mView.findViewById(R.id.selected_area);
+        imageView = (ImageView) mView.findViewById(R.id.img_view_cam);
+        mButtonCam = (Button) mView.findViewById(R.id.take_photo);
+        mButtonCam.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                if (intent.resolveActivity(getActivity().getPackageManager()) != null) {
+                    startActivityForResult(intent, REQUEST_IMAGE);
+                }
+            }
+        });
+
         spinnerArea.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -77,11 +97,21 @@ public class FormProblemFragment extends Fragment implements View.OnClickListene
             }
         });
 
+
         areas = new ArrayList<String>();
         products = new ArrayList<String>();
         initializeFields();
         new FormProblemFragment.QueryTask().execute();
         return mView;
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == REQUEST_IMAGE && resultCode == RESULT_OK) {
+            Bundle bundle = data.getExtras();
+            Bitmap bitmap = (Bitmap) bundle.get("data");
+            imageView.setImageBitmap(bitmap);
+        }
     }
 
     public void initializerArea() {

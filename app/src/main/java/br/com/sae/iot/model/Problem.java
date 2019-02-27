@@ -25,8 +25,8 @@ public class Problem implements Serializable {
     private String areaProblem;
     private String productProblem;
     private int industryId;
-    @ColumnInfo(typeAffinity = ColumnInfo.BLOB)
-    private byte[] image;
+//    @ColumnInfo(typeAffinity = ColumnInfo.BLOB)
+//    private byte[] image;
 
     public Problem() {
     }
