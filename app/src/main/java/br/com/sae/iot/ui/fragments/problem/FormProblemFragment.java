@@ -43,6 +43,7 @@ import br.com.sae.iot.dao.ProductDAO;
 import br.com.sae.iot.database.SaeDatabase;
 import br.com.sae.iot.model.Industry;
 import br.com.sae.iot.model.Problem;
+import br.com.sae.iot.utils.Constants;
 import br.com.sae.iot.utils.FormValidator;
 
 import static android.app.Activity.RESULT_CANCELED;
@@ -55,17 +56,17 @@ public class FormProblemFragment extends Fragment {
     private Button mButtonSave;
     private ImageButton mButtonCam;
     private Spinner spinnerArea, spinnerProduct;
+    private ImageView imageView;
+
+    private ArrayAdapter<String> areaAdapter;
+    private ArrayAdapter<String> producAdapter;
+
     private List<String> areas;
     private List<String> products;
     private Industry industry;
     private Problem problem;
-    private ImageView imageView;
-
-    public static final int REQUEST_IMAGE = 100;
-    public static final int REQUEST_PERMISSION = 200;
+    private boolean isUpdate = false;
     private String imageFilePath = "";
-
-    private static final String AUTHORITY = "br.com.sae.iot.provider";
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Nullable
@@ -125,6 +126,36 @@ public class FormProblemFragment extends Fragment {
         return mView;
     }
 
+    private void loadProblems() {
+        Bundle arguments = getArguments();
+        if (arguments != null && arguments.containsKey(Constants.KEY_PROBLEM)) {
+            Problem pb = (Problem) getArguments().getSerializable(Constants.KEY_PROBLEM);
+            loadFields(pb);
+            this.isUpdate = true;
+        }
+
+    }
+
+    private void loadFields(Problem pb) {
+        mEditTitleProblem.setText(pb.getTitleProblem());
+        mEditDescProblem.setText(pb.getDescProblem());
+
+        for (int i = 0; i < areas.size(); i++) {
+            if (areas.get(i).equalsIgnoreCase(pb.getAreaProblem())) {
+                int spinnerPosition = areaAdapter.getPosition(areas.get(i));
+                spinnerArea.setSelection(spinnerPosition);
+            }
+        }
+
+        for (int i = 0; i < products.size(); i++) {
+            if (products.get(i).equalsIgnoreCase(pb.getProductProblem())) {
+                int spinnerPosition = producAdapter.getPosition(products.get(i));
+                spinnerProduct.setSelection(spinnerPosition);
+            }
+        }
+        imageView.setImageURI(Uri.parse(pb.getPathImage()));
+    }
+
     private void verifyPermission() {
         ArrayList<String> permissions = new ArrayList<>();
         if (ActivityCompat.checkSelfPermission(getActivity(),
@@ -159,22 +190,22 @@ public class FormProblemFragment extends Fragment {
                 e.printStackTrace();
                 return;
             }
-            Uri photoUri = FileProvider.getUriForFile(mView.getContext(), AUTHORITY, photoFile);
+            Uri photoUri = FileProvider.getUriForFile(mView.getContext(), Constants.AUTHORITY, photoFile);
             pictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoUri);
-            startActivityForResult(pictureIntent, REQUEST_IMAGE);
+            startActivityForResult(pictureIntent, Constants.REQUEST_IMAGE);
         }
     }
 
     public void initializerArea() {
-        ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(mView.getContext(), android.R.layout.simple_spinner_item, areas);
-        dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinnerArea.setAdapter(dataAdapter);
+        areaAdapter = new ArrayAdapter<String>(mView.getContext(), android.R.layout.simple_spinner_item, areas);
+        areaAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinnerArea.setAdapter(areaAdapter);
     }
 
     public void initializerProducts() {
-        ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(mView.getContext(), android.R.layout.simple_spinner_item, products);
-        dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinnerProduct.setAdapter(dataAdapter);
+        producAdapter = new ArrayAdapter<String>(mView.getContext(), android.R.layout.simple_spinner_item, products);
+        producAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinnerProduct.setAdapter(producAdapter);
     }
 
     @Override
@@ -219,7 +250,11 @@ public class FormProblemFragment extends Fragment {
             try {
                 SaeDatabase database = SaeDatabase.getInstance(mView.getContext());
                 ProblemDAO dao = database.getProblemDao();
-                dao.save(problem);
+                if (isUpdate) {
+                    dao.update(problem);
+                } else {
+                    dao.save(problem);
+                }
                 return false;
             } catch (Exception e) {
                 return true;
@@ -266,6 +301,8 @@ public class FormProblemFragment extends Fragment {
             if (products.size() > 0) {
                 initializerProducts();
             }
+
+            loadProblems();
         }
 
     }
@@ -275,7 +312,7 @@ public class FormProblemFragment extends Fragment {
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
 
-        if (requestCode == REQUEST_PERMISSION && grantResults.length > 0) {
+        if (requestCode == Constants.REQUEST_PERMISSION && grantResults.length > 0) {
             if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 Toast.makeText(mView.getContext(), "Obrigado pelas permissões!", Toast.LENGTH_SHORT).show();
             }
@@ -286,11 +323,11 @@ public class FormProblemFragment extends Fragment {
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if (requestCode == REQUEST_IMAGE) {
+        if (requestCode == Constants.REQUEST_IMAGE) {
             if (resultCode == RESULT_OK) {
                 imageView.setImageURI(Uri.parse(imageFilePath));
             } else if (resultCode == RESULT_CANCELED) {
-//                Toast.makeText(mView.getContext(), "opção de tirar foto cancelada!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(mView.getContext(), "opção de tirar foto cancelada!", Toast.LENGTH_SHORT).show();
             }
         }
     }
