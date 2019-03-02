@@ -72,14 +72,16 @@ public class ProblemAdapter extends BaseAdapter {
         notifyDataSetChanged();
     }
 
-    public void remove(IndustryArea industryArea) {
-        problems.remove(industryArea);
+    public void remove(Problem problem) {
+        problems.remove(problem);
         notifyDataSetChanged();
     }
 
     // Classe para implementação do padrão View Holder
-    private static class ViewHolder {
+    private class ViewHolder {
+
         public TextView txtNameArea;
+
     }
 }
 
