@@ -25,5 +25,6 @@
     <string name="name_problem">Titulo do problema</string>
     <string name="select_area_problem">Selecione uma área</string>
     <string name="select_product_problem">Selecione o produto</string>
+    <string name="desc_problem">Descrição do Problema</string>
 
 </resources>

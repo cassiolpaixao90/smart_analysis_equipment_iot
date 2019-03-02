@@ -37,6 +37,7 @@ public class FormProductFragment extends Fragment implements View.OnClickListene
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         ((AppCompatActivity) getActivity()).getSupportActionBar().show();
+        ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("SAE - Produtos");
         mView = inflater.inflate(R.layout.fragment_form_product, container, false);
         initializeFields();
         return mView;

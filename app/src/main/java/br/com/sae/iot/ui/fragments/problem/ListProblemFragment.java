@@ -39,6 +39,8 @@ public class ListProblemFragment extends Fragment implements View.OnClickListene
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         ((AppCompatActivity) getActivity()).getSupportActionBar().show();
+        ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("SAE - Problemas");
+
         mView = inflater.inflate(R.layout.fragment_problem, container, false);
         floatingActionButton = (FloatingActionButton) mView.findViewById(R.id.fab_problem);
         floatingActionButton.setOnClickListener(this);

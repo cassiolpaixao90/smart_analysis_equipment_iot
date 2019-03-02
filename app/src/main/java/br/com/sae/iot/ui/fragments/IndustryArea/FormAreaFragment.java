@@ -34,6 +34,7 @@ public class FormAreaFragment extends Fragment implements View.OnClickListener {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         ((AppCompatActivity) getActivity()).getSupportActionBar().show();
+        ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("SAE - Áreas");
         mView = inflater.inflate(R.layout.fragment_form_area, container, false);
         initializeFields();
         return mView;

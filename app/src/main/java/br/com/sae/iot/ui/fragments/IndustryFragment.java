@@ -32,6 +32,7 @@ public class IndustryFragment extends Fragment implements View.OnClickListener {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         ((AppCompatActivity) getActivity()).getSupportActionBar().show();
+        ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("SAE - Fábricas");
         mView = inflater.inflate(R.layout.fragment_industry, container, false);
         initializeFields();
         return mView;

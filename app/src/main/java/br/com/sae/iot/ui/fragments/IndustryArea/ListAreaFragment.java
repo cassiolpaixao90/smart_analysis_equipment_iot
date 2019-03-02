@@ -39,6 +39,7 @@ public class ListAreaFragment extends Fragment implements View.OnClickListener {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         ((AppCompatActivity) getActivity()).getSupportActionBar().show();
+        ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("SAE - Áreas");
         mView = inflater.inflate(R.layout.fragment_area, container, false);
         floatingActionButton = (FloatingActionButton) mView.findViewById(R.id.fab_area);
         floatingActionButton.setOnClickListener(this);

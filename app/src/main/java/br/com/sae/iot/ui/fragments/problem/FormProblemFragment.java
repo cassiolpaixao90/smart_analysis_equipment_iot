@@ -23,6 +23,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.Toast;
@@ -47,11 +48,12 @@ import br.com.sae.iot.utils.FormValidator;
 import static android.app.Activity.RESULT_CANCELED;
 import static android.app.Activity.RESULT_OK;
 
-public class FormProblemFragment extends Fragment implements View.OnClickListener {
+public class FormProblemFragment extends Fragment {
 
     private View mView;
-    private EditText mEditTextName;
-    private Button mButtonSave, mButtonCam;
+    private EditText mEditTitleProblem, mEditDescProblem;
+    private Button mButtonSave;
+    private ImageButton mButtonCam;
     private Spinner spinnerArea, spinnerProduct;
     private List<String> areas;
     private List<String> products;
@@ -63,17 +65,18 @@ public class FormProblemFragment extends Fragment implements View.OnClickListene
     public static final int REQUEST_PERMISSION = 200;
     private String imageFilePath = "";
 
+    private static final String AUTHORITY = "br.com.sae.iot.provider";
+
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         ((AppCompatActivity) getActivity()).getSupportActionBar().show();
+        ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("SAE - Problemas");
         mView = inflater.inflate(R.layout.fragment_form_problem, container, false);
+        initializeFields();
         industry = new Industry();
         problem = new Problem();
-        spinnerArea = (Spinner) mView.findViewById(R.id.selected_area);
-        imageView = (ImageView) mView.findViewById(R.id.image_problem);
-        mButtonCam = (Button) mView.findViewById(R.id.button_take_photo);
         mButtonCam.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -108,10 +111,16 @@ public class FormProblemFragment extends Fragment implements View.OnClickListene
             }
         });
 
+        mButtonSave.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                saveProblem();
+            }
+        });
+
 
         areas = new ArrayList<String>();
         products = new ArrayList<String>();
-        initializeFields();
         new FormProblemFragment.QueryTask().execute();
         return mView;
     }
@@ -150,7 +159,7 @@ public class FormProblemFragment extends Fragment implements View.OnClickListene
                 e.printStackTrace();
                 return;
             }
-            Uri photoUri = FileProvider.getUriForFile(mView.getContext(), "br.com.sae.iot.provider", photoFile);
+            Uri photoUri = FileProvider.getUriForFile(mView.getContext(), AUTHORITY, photoFile);
             pictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoUri);
             startActivityForResult(pictureIntent, REQUEST_IMAGE);
         }
@@ -173,30 +182,34 @@ public class FormProblemFragment extends Fragment implements View.OnClickListene
         super.onViewCreated(view, savedInstanceState);
     }
 
-    @Override
-    public void onClick(View v) {
+
+    public void saveProblem() {
         if (!formIsValid()) {
             return;
         }
         problem.setIndustryId(1);
-        problem.setTitleProblem(mEditTextName.getText().toString());
+        problem.setTitleProblem(mEditTitleProblem.getText().toString());
+        problem.setDescProblem(mEditDescProblem.getText().toString());
         new FormProblemFragment.Task().execute();
     }
 
 
     private boolean formIsValid() {
-        EditText forms[] = {mEditTextName};
+        EditText forms[] = {mEditTitleProblem, mEditTitleProblem};
         return FormValidator.isValid(getActivity(), forms);
     }
 
     private void initializeFields() {
-        this.mEditTextName = mView.findViewById(R.id.name_problem_form_id);
-        this.mButtonSave = mView.findViewById(R.id.btn_save_form_problem);
-        this.mButtonSave.setOnClickListener(this);
+        this.mEditDescProblem = (EditText) mView.findViewById(R.id.desc_problem_id);
+        this.mEditTitleProblem = (EditText) mView.findViewById(R.id.name_problem_form_id);
+        this.mButtonSave = (Button) mView.findViewById(R.id.btn_save_form_problem);
+        this.spinnerArea = (Spinner) mView.findViewById(R.id.selected_area);
+        this.imageView = (ImageView) mView.findViewById(R.id.image_problem);
+        this.mButtonCam = (ImageButton) mView.findViewById(R.id.button_take_photo);
     }
 
     /**
-     * @description Async Task para evitar tarefa pesada na thread de UI
+     * @description Async Task, para evitar tarefa pesada na thread de UI
      * evitando bloqueio
      */
     private class Task extends AsyncTask {
@@ -207,8 +220,6 @@ public class FormProblemFragment extends Fragment implements View.OnClickListene
                 SaeDatabase database = SaeDatabase.getInstance(mView.getContext());
                 ProblemDAO dao = database.getProblemDao();
                 dao.save(problem);
-                List<Problem> problems = dao.problemByIndustry(1);
-
                 return false;
             } catch (Exception e) {
                 return true;
@@ -218,7 +229,7 @@ public class FormProblemFragment extends Fragment implements View.OnClickListene
         @Override
         protected void onPostExecute(Object result) {
             super.onPostExecute(result);
-            mEditTextName.setText("");
+            mEditTitleProblem.setText("");
             Toast.makeText(mView.getContext(), "Salvo com sucesso!", Toast.LENGTH_LONG).show();
         }
 
@@ -266,7 +277,7 @@ public class FormProblemFragment extends Fragment implements View.OnClickListene
 
         if (requestCode == REQUEST_PERMISSION && grantResults.length > 0) {
             if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                Toast.makeText(mView.getContext(), "Thanks for granting Permission", Toast.LENGTH_SHORT).show();
+                Toast.makeText(mView.getContext(), "Obrigado pelas permissões!", Toast.LENGTH_SHORT).show();
             }
         }
     }
@@ -279,19 +290,18 @@ public class FormProblemFragment extends Fragment implements View.OnClickListene
             if (resultCode == RESULT_OK) {
                 imageView.setImageURI(Uri.parse(imageFilePath));
             } else if (resultCode == RESULT_CANCELED) {
-                Toast.makeText(mView.getContext(), "You cancelled the operation", Toast.LENGTH_SHORT).show();
+//                Toast.makeText(mView.getContext(), "opção de tirar foto cancelada!", Toast.LENGTH_SHORT).show();
             }
         }
     }
 
     private File createImageFile() throws IOException {
-
         String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss", Locale.getDefault()).format(new Date());
         String imageFileName = "IMG_" + timeStamp + "_";
         File storageDir = getActivity().getExternalFilesDir(Environment.DIRECTORY_PICTURES);
         File image = File.createTempFile(imageFileName, ".jpg", storageDir);
         imageFilePath = image.getAbsolutePath();
-
+        problem.setPathImage(imageFilePath);
         return image;
     }
 

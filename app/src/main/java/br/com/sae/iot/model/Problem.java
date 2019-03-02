@@ -25,12 +25,10 @@ public class Problem implements Serializable {
     private String areaProblem;
     private String productProblem;
     private int industryId;
-//    @ColumnInfo(typeAffinity = ColumnInfo.BLOB)
-//    private byte[] image;
+    private String pathImage;
 
     public Problem() {
     }
-    
 
     public int getId() {
         return id;
@@ -78,5 +76,13 @@ public class Problem implements Serializable {
 
     public void setProductProblem(String productProblem) {
         this.productProblem = productProblem;
+    }
+
+    public String getPathImage() {
+        return pathImage;
+    }
+
+    public void setPathImage(String pathImage) {
+        this.pathImage = pathImage;
     }
 }
