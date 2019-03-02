@@ -1,6 +1,5 @@
 package br.com.sae.iot.ui.activity;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
@@ -13,7 +12,7 @@ import android.view.View;
 import br.com.sae.iot.R;
 import br.com.sae.iot.ui.fragments.HomeFragment;
 import br.com.sae.iot.ui.fragments.IndustryArea.ListAreaFragment;
-import br.com.sae.iot.ui.fragments.IndustryFragment;
+import br.com.sae.iot.ui.fragments.Industry.IndustryFragment;
 import br.com.sae.iot.ui.fragments.product.ListProductFragment;
 
 /**

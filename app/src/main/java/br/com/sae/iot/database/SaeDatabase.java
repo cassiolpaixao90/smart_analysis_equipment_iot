@@ -49,15 +49,3 @@ public abstract class SaeDatabase extends RoomDatabase {
 
     }
 }
-
-//.addMigrations(new Migration(1, 2) {
-//@Override
-//public void migrate(@NonNull SupportSQLiteDatabase database) {
-//        database.execSQL("ALTER TABLE alumo ADD COLUMN sobrenome TEXT");
-//        }
-//        }, new Migration(2, 3) {
-//@Override
-//public void migrate(@NonNull SupportSQLiteDatabase database) {
-//
-//        }
-//        })

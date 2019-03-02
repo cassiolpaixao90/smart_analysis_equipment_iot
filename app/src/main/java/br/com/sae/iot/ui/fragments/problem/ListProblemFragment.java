@@ -32,7 +32,7 @@ public class ListProblemFragment extends Fragment implements View.OnClickListene
     private ListView mListView;
     private List<Problem> problems;
     private FloatingActionButton floatingActionButton;
-
+    private static final String KEY_PROBLEM = "problem";
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Nullable
@@ -58,6 +58,27 @@ public class ListProblemFragment extends Fragment implements View.OnClickListene
         mListView = mView.findViewById(R.id.list_problem_id);
         ProblemAdapter adapter = new ProblemAdapter(mView.getContext(), problems);
         mListView.setAdapter(adapter);
+        getActivity().registerForContextMenu(mListView);
+        configureListenerClickItem(mListView);
+    }
+
+    private void configureListenerClickItem(ListView problems) {
+        problems.setOnItemClickListener((adapterView, view, position, id) -> {
+            Problem problem = (Problem) adapterView.getItemAtPosition(position);
+            openViwerProblem(problem);
+        });
+    }
+
+    private void openViwerProblem(Problem problem){
+        Bundle bundle = new Bundle();
+        bundle.putSerializable(KEY_PROBLEM, problem);
+        Fragment fragment = new ViewProblemFragment();
+        fragment.setArguments(bundle);
+        FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.main_container_wrapper, fragment);
+        fragmentTransaction.addToBackStack("tag");
+        fragmentTransaction.commit();
     }
 
 

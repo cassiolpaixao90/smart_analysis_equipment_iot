@@ -1,4 +1,4 @@
-package br.com.sae.iot.ui.fragments;
+package br.com.sae.iot.ui.fragments.Industry;
 
 import android.os.AsyncTask;
 import android.os.Build;
@@ -58,8 +58,8 @@ public class IndustryFragment extends Fragment implements View.OnClickListener {
     }
 
     private void initializeFields() {
-        this.mEditTextName = mView.findViewById(R.id.name_company_id);
-        this.mButtonSave = mView.findViewById(R.id.btn_save);
+        this.mEditTextName = (EditText) mView.findViewById(R.id.name_company_id);
+        this.mButtonSave = (Button) mView.findViewById(R.id.btn_save);
         this.mButtonSave.setOnClickListener(this);
     }
 
